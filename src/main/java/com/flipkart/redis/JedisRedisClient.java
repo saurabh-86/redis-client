@@ -28,4 +28,9 @@ public class JedisRedisClient implements RedisClient {
     public List<String> hmget(String key, String... fields) {
         return jedis.hmget(key, fields);
     }
+
+    @Override
+    public Long expire(String key, int seconds) {
+        return jedis.expire(key, seconds);
+    }
 }

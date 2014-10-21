@@ -153,4 +153,17 @@ public abstract class AbstractRedisRepo<T> {
     protected String formatAttribute(String name, Object obj) {
         return (obj instanceof Date) ? df.format(obj) : String.valueOf(obj);
     }
+
+    /**
+     * Expire an entity after a specified duration
+     * @param key The logical key of the entity
+     * @param seconds Duration after the which the entity should expire
+     * @return
+     */
+    protected Long expireEntity(String key, int seconds) {
+        String redisKey = getRedisKey(key);
+        RedisClient redisClient = redisClientProvider.get();
+        return redisClient.expire(redisKey, seconds);
+    }
+
 }
